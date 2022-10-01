@@ -27,6 +27,21 @@
               >Contact</router-link
             >
           </li>
+          <li>
+            <router-link @click="hideOverlay" :to="{ name: 'Register' }"
+              >Register</router-link
+            >
+          </li>
+          <li>
+            <router-link @click="hideOverlay" :to="{ name: 'Login' }"
+              >Login</router-link
+            >
+          </li>
+          <li>
+            <router-link @click="hideOverlay" :to="{ name: 'Dashboard' }"
+              >Dashboard</router-link
+            >
+          </li>
         </ul>
       </div>
 
