@@ -513,3 +513,10 @@ textarea {
     padding: 3px 15px;
     border-radius: 3px;
 }
+
+.error {
+    color: red;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
