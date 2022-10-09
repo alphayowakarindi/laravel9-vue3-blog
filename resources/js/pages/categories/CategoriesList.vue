@@ -9,7 +9,10 @@
       <span>{{ index + 1 }}</span>
       <p>{{ category.name }}</p>
       <div>
-        <a href="">Edit</a>
+        <router-link
+          :to="{ name: 'EditCategories', params: { id: category.id } }"
+          >Edit</router-link
+        >
       </div>
 
       <input type="submit" value="Delete" />
