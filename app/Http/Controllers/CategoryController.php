@@ -24,4 +24,21 @@ class CategoryController extends Controller
     {
         return Category::latest()->get();
     }
+
+    public function show(Category $category)
+    {
+        return $category;
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required | unique:categories',
+        ]);
+
+        $name = $request->input('name');
+        $category->name = $name;
+
+        return $category->save();
+    }
 }
