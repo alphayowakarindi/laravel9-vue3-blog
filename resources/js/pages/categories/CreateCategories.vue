@@ -17,7 +17,9 @@
         </form>
       </div>
       <div class="create-categories">
-        <a href="">Categories list <span>&#8594;</span></a>
+        <router-link :to="{ name: 'CategoriesList' }"
+          >Categories List <span>&#8594;</span></router-link
+        >
       </div>
     </div>
   </div>

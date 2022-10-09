@@ -1,24 +1,13 @@
 <template>
   <div class="categories-list">
     <h1>Categories List</h1>
-    <div class="item">
-      <p>Category 1</p>
-      <div>
-        <a href="">Edit</a>
-      </div>
-
-      <input type="submit" value="Delete" />
-    </div>
-    <div class="item">
-      <p>Category 2</p>
-      <div>
-        <a href="">Edit</a>
-      </div>
-
-      <input type="submit" value="Delete" />
-    </div>
-    <div class="item">
-      <p>Category 3</p>
+    <div
+      class="item"
+      v-for="(category, index) in categories"
+      :key="category.id"
+    >
+      <span>{{ index + 1 }}</span>
+      <p>{{ category.name }}</p>
       <div>
         <a href="">Edit</a>
       </div>
@@ -34,7 +23,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      categories: [],
+    };
+  },
+  mounted() {
+    axios
+      .get("/api/categories")
+      .then((response) => (this.categories = response.data))
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
 </script>
 
 <style scoped>
