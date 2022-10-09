@@ -33,7 +33,11 @@ export default {
     logout() {
       axios
         .post("/api/logout")
-        .then((response) => this.$router.push({ name: "Home" }))
+        .then((response) => {
+          this.$router.push({ name: "Home" });
+          localStorage.removeItem("authenticated");
+          this.$emit("updateSidebar");
+        })
         .catch((error) => console.log(error));
     },
   },
