@@ -30,3 +30,6 @@ Route::middleware('auth:sanctum')->post('categories/create', [CategoryController
 //////////////////////////////////////////////// PUBLIC ROUTES //////////////////////////////////////////////// 
 Route::post('register', [RegisteredUserController::class, 'store']);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+// categories
+Route::get('categories', [CategoryController::class, 'index']);
