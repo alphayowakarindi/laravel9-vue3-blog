@@ -26,7 +26,13 @@ export default {
     axios
       .get("/api/user")
       .then((response) => (this.name = response.data.name))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if (error.response.status === 401) {
+          this.$emit("updateSidebar");
+          localStorage.removeItem("authenticated");
+          this.$router.push({ name: "Login" });
+        }
+      });
   },
 
   methods: {
