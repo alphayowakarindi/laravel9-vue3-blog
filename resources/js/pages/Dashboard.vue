@@ -12,7 +12,11 @@
           >
         </li>
 
-        <li><a href="">Categories List</a></li>
+        <li>
+          <router-link :to="{ name: 'CategoriesList' }"
+            >Categories List</router-link
+          >
+        </li>
       </ul>
     </div>
   </div>
