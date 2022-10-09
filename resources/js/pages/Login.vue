@@ -30,6 +30,8 @@ export default {
         .post("/api/login", this.fields)
         .then(() => {
           this.$router.push({ name: "Dashboard" });
+          localStorage.setItem("authenticated", "true");
+          this.$emit("updateSidebar");
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
