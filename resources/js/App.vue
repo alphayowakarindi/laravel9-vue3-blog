@@ -27,17 +27,17 @@
               >Contact</router-link
             >
           </li>
-          <li>
+          <li v-if="!loggedIn">
             <router-link @click="hideOverlay" :to="{ name: 'Register' }"
               >Register</router-link
             >
           </li>
-          <li>
+          <li v-if="!loggedIn">
             <router-link @click="hideOverlay" :to="{ name: 'Login' }"
               >Login</router-link
             >
           </li>
-          <li>
+          <li v-if="loggedIn">
             <router-link @click="hideOverlay" :to="{ name: 'Dashboard' }"
               >Dashboard</router-link
             >
@@ -66,7 +66,7 @@
     <main class="container">
       <!-- render components depending on the page visited -->
 
-      <router-view></router-view>
+      <router-view @update-sidebar="updateSidebar"></router-view>
     </main>
 
     <!-- Main footer -->
@@ -85,6 +85,7 @@ export default {
   data() {
     return {
       overlayVisibility: false,
+      loggedIn: false,
     };
   },
   methods: {
@@ -95,6 +96,18 @@ export default {
     hideOverlay() {
       this.overlayVisibility = false;
     },
+
+    updateSidebar() {
+      this.loggedIn = !this.loggedIn;
+    },
+  },
+
+  mounted() {
+    if (localStorage.getItem("authenticated")) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
   },
 };
 </script>
