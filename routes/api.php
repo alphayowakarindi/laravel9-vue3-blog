@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,3 +41,6 @@ Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
 // categories
 Route::get('categories', [CategoryController::class, 'index']);
+
+// posts
+Route::get('home-posts', [HomeController::class, 'index']);
