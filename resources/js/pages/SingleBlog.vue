@@ -43,6 +43,7 @@
 </template>
 <script>
 export default {
+  emits: ["updateSidebar"],
   props: ["slug"],
   data() {
     return {
