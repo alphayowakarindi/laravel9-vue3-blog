@@ -2,13 +2,13 @@
   <div class="categories-list">
     <h1>Posts List</h1>
     <!-- success message -->
-    <div class="success-msg">
+    <div class="success-msg" v-if="success">
       <i class="fa fa-check"></i>
       Post deleted successfully
     </div>
-    <div class="item">
-      <span>1.</span>
-      <p>First title</p>
+    <div class="item" v-for="(post, index) in posts" :key="post.id">
+      <span>{{ index + 1 }}.</span>
+      <p>{{ post.title }}</p>
       <div>
         <a href="" class="edit-link">Edit</a>
       </div>
@@ -22,6 +22,26 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  emits: ["updateSidebar"],
+  data() {
+    return {
+      posts: [],
+      success: false,
+    };
+  },
+
+  mounted() {
+    axios
+      .get("/api/dashboard-posts")
+      .then((response) => (this.posts = response.data.data))
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
+</script>
 
 <style scoped >
 .categories-list {
