@@ -15,7 +15,11 @@ class PostController extends Controller
     {
         if ($request->category) {
             return PostResource::collection(Category::where('name', $request->category)->firstOrFail()->posts()->latest()->get());
+        } else if ($request->search) {
+            return  PostResource::collection(Post::where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('body', 'like', '%' . $request->search . '%')->latest()->get());
         }
+
         return PostResource::collection(Post::latest()->get());
     }
 
