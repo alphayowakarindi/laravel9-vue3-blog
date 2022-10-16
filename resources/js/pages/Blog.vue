@@ -11,10 +11,11 @@
   </div>
   <div class="categories">
     <ul>
-      <li><a href="">Health</a></li>
-      <li><a href="">Entertainment</a></li>
-      <li><a href="">Sports</a></li>
-      <li><a href="">Nature</a></li>
+      <li v-for="category in categories" :key="category.id">
+        <a href="#" @click="filterByCategory(category.name)">{{
+          category.name
+        }}</a>
+      </li>
     </ul>
   </div>
   <section class="cards-blog latest-blog">
@@ -43,13 +44,38 @@ export default {
   data() {
     return {
       posts: [],
+      categories: [],
     };
+  },
+
+  methods: {
+    filterByCategory(name) {
+      axios
+        .get("/api/posts", {
+          params: {
+            category: name,
+          },
+        })
+        .then((response) => {
+          this.posts = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 
   mounted() {
     axios
       .get("/api/posts")
       .then((response) => (this.posts = response.data.data))
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get("/api/categories")
+      .then((response) => (this.categories = response.data))
       .catch((error) => {
         console.log(error);
       });
