@@ -68,6 +68,8 @@
 
       <router-view
         @update-sidebar="updateSidebar"
+        @show-edit-success="showEditSuccess"
+        :editSuccess="editSuccess"
         :key="$route.path"
       ></router-view>
     </main>
@@ -89,6 +91,7 @@ export default {
     return {
       overlayVisibility: false,
       loggedIn: false,
+      editSuccess: false,
     };
   },
   methods: {
@@ -102,6 +105,10 @@ export default {
 
     updateSidebar() {
       this.loggedIn = !this.loggedIn;
+    },
+
+    showEditSuccess() {
+      this.editSuccess = true;
     },
   },
 
