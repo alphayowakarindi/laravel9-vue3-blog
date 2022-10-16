@@ -51,11 +51,17 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        if (auth()->user()->id !== $post->user->id) {
+            return abort(403);
+        }
         return new PostResource($post);
     }
 
     public function update(Request $request, Post $post)
     {
+        if (auth()->user()->id !== $post->user->id) {
+            return abort(403);
+        }
         $request->validate([
             'title' => 'required',
             'file' => 'nullable | image',
