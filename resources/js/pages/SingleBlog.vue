@@ -20,24 +20,19 @@
   <section class="recommended">
     <p>Related</p>
     <div class="recommended-cards">
-      <a href="">
+      <router-link
+        v-for="relatedPost in relatedPosts"
+        :key="relatedPost.id"
+        :to="{
+          name: 'SingleBlog',
+          params: { slug: relatedPost.slug },
+        }"
+      >
         <div class="recommended-card">
-          <img src="/images/pic5.jpg" alt="" loading="lazy" />
-          <h4>12 Health Benefits Of Pomegranate Fruit</h4>
+          <img :src="`/${relatedPost.imagePath}`" alt="" loading="lazy" />
+          <h4>{{ relatedPost.title }}</h4>
         </div>
-      </a>
-      <a href="">
-        <div class="recommended-card">
-          <img src="/images/pushups.jpg" alt="" loading="lazy" />
-          <h4>The Truth About Pushups</h4>
-        </div>
-      </a>
-      <a href="">
-        <div class="recommended-card">
-          <img src="/images/smoothies.jpg" alt="" loading="lazy" />
-          <h4>Healthy Smoothies</h4>
-        </div>
-      </a>
+      </router-link>
     </div>
   </section>
 </template>
@@ -48,12 +43,20 @@ export default {
   data() {
     return {
       post: {},
+      relatedPosts: [],
     };
   },
   mounted() {
     axios
       .get("/api/posts/" + this.slug)
       .then((response) => (this.post = response.data.data))
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get("/api/related-posts/" + this.slug)
+      .then((response) => (this.relatedPosts = response.data.data))
       .catch((error) => {
         console.log(error);
       });
