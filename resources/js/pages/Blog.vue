@@ -2,7 +2,12 @@
   <h2 class="header-title">All Blog Posts</h2>
   <div class="searchbar">
     <form action="">
-      <input type="text" placeholder="Search..." name="search" />
+      <input
+        type="text"
+        placeholder="Search..."
+        name="search"
+        v-model="title"
+      />
 
       <button type="submit">
         <i class="fa fa-search"></i>
@@ -37,6 +42,7 @@
       </h4>
     </div>
   </section>
+  <h3 v-if="!posts.length">Sorry, no match was found!</h3>
 </template>
 <script>
 export default {
@@ -45,6 +51,7 @@ export default {
     return {
       posts: [],
       categories: [],
+      title: "",
     };
   },
 
@@ -54,6 +61,23 @@ export default {
         .get("/api/posts", {
           params: {
             category: name,
+          },
+        })
+        .then((response) => {
+          this.posts = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+
+  watch: {
+    title() {
+      axios
+        .get("/api/posts", {
+          params: {
+            search: this.title,
           },
         })
         .then((response) => {
@@ -82,3 +106,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+h3 {
+  font-size: 30px;
+  text-align: center;
+  margin: 50px 0;
+  color: #fff;
+}
+</style>
