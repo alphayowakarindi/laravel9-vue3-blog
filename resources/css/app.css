@@ -507,7 +507,7 @@ textarea {
     }
 }
 
-.router-link-active {
+.side-links .router-link-active {
     background-color: orangered;
     color: #fff;
     padding: 3px 15px;
